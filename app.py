@@ -26,7 +26,6 @@ def get_message_db():
 def insert_message(request):
         msg = request.form['message']
         handle = request.form['handle']
-        # id = 1 + rows of database
 
         with get_message_db() as db:
                 cursor = db.cursor()
@@ -56,6 +55,7 @@ def render_submit():
                                       handle,
                                       thanks = True)
 
+# @app.route("/view/")    
 def random_messages(n):
         with get_message_db() as db:
                 cursor = db.cursor()
