@@ -1,0 +1,40 @@
+h1 {
+    color: #484E4B;
+    font-family: 'trebuchet ms';
+    text-align: center;
+}
+
+h2, p {
+    color: #484E4B;
+    font-family: 'trebuchet ms';
+}
+
+label {
+    color: #484E4B;
+    font-family: 'trebuchet ms';
+    font-size: 14px
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #D0DDD7;
+  }
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: #484E4B;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+  }
+
+li a:hover{
+    background-color: #B2BFB9;
+}

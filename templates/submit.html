@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
-{% block header %}
-  <h1>{% block title %}Submit{% endblock %}</h1>
+{% block header2 %}
+  <h2>{% block title %}Submit a message!{% endblock %}</h2>
 {% endblock %}
 
 {% block content %}
@@ -10,7 +10,7 @@
     <br>
     <input type="text" name="message" id="message">
     <br>
-    <label for="name">Your name/handle:</label>
+    <label for="handle">Your name/handle:</label>
     <br>
     <input type="text" name="handle" id="handle">
     <br>
@@ -19,7 +19,7 @@
 
 {% if thanks %}
   <br>
-  Thanks for submitting!
+  <p>Thanks for submitting!</p>
 {% endif %}
 
 {% endblock %}

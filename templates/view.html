@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header2 %}
+  <h2>{% block title %}Look at these messages!{% endblock %}</h2>
+{% endblock %}
+
+{% block content %}
+
+{% for item in MsgList %}
+  <p>
+  {{ item[0] }}
+  <br>
+  - <em>{{ item[1] }}</em>
+  <br>
+  </p>
+{% endfor %}
+
+{% endblock %}

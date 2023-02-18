@@ -1,30 +1,27 @@
-from flask import Flask
-from flask import render_template
-from flask import request, g
+from flask import Flask, render_template, request, g
 import sqlite3
 
 app = Flask(__name__)
 
-@app.route("/", methods = ["POST", "GET"])
 def get_message_db():
   # write some helpful comments here
   try:
-          return g.message_db
+        return g.message_db
   except:
-          g.message_db = sqlite3.connect("messages_db.sqlite")
+        g.message_db = sqlite3.connect('messages_db.sqlite')
+        
+        cmd = \
+        """
+        CREATE TABLE IF NOT EXISTS messages
+        (id INTEGER, handle TEXT, message TEXT)
+        """
 
-          cmd = \
-          """
-          CREATE TABLE IF NOT EXISTS messages
-          (id INTEGER, handle TEXT, message TEXT)
-          """
-
-          cursor = g.message_db.cursor()
-          cursor.execute(cmd)
-          return g.message_db
+        cursor = g.message_db.cursor()
+        cursor.execute(cmd)
+        return g.message_db
   
 def insert_message(request):
-        msg = request.form['message']
+        message = request.form['message']
         handle = request.form['handle']
 
         with get_message_db() as db:
@@ -36,26 +33,14 @@ def insert_message(request):
                 cmd = \
                 f"""
                 INSERT INTO messages(id, handle, message)
-                VALUES({id}, '{handle}', '{msg}')"
+                VALUES({id}, '{handle}', '{message}')
                 """
 
                 cursor.execute(cmd)
                 db.commit()
-                g.message_db.close()
 
-        return [msg, handle]
+        return [message, handle]
 
-def render_submit():
-        if request.method == "GET":
-               return render_template("submit.html")
-        else:
-               message, handle = insert_message()
-               return render_template("submit.html",
-                                      message,
-                                      handle,
-                                      thanks = True)
-
-# @app.route("/view/")    
 def random_messages(n):
         with get_message_db() as db:
                 cursor = db.cursor()
@@ -70,11 +55,19 @@ def random_messages(n):
 
                 cursor.execute(cmd)
                 # returns a list of tuples with message and handle
-                result = [cursor.fetchone() for i in range(n)]
-                g.message_db.close()
+                result = cursor.fetchall()
 
         return result
 
+@app.route("/", methods = ["GET", "POST"])
+def render_submit():
+        if request.method == "GET":
+               return render_template("submit.html")
+        else:
+               insert_message(request)
+               return render_template("submit.html", thanks = True)
+
+@app.route("/view/")    
 def render_view():
        MsgHandleList = random_messages(5)
-       return render_template("view.html")
+       return render_template("view.html", MsgList = MsgHandleList)

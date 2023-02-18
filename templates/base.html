@@ -1,17 +1,21 @@
 <!doctype html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <title>PIC 16B Website</title>
 
-<nav>
-  <h1>PIC16B HW 3 Webapp</h1>
-  <p><a href="/">Submit a message</a></p>
-  <p><a href="/">View a message</a></p>
-</nav>
+{% block header %}
+  <h1>PIC16B HW 3 WEBSITE</h1>
+{% endblock %}
 
-<section class="content">
-  <header>
-    {% block header %}
-    {% endblock %}
-  </header>
-  {% block content %}
-  {% endblock %}
-</section>
+{% block links %}
+
+  <ul>
+    <li><a href="/">Submit a message</a></li>
+    <li><a href="/view/">View a message</a></li>
+  </ul>
+{% endblock %}
+
+{% block header2 %}
+{% endblock %}
+
+{% block content %}
+{% endblock %}
